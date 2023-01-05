@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     factory(qualifier<SignInQualifiers.DefaultWebClientId>()) {
-        androidContext().getString(R.string.default_web_client_id)
+        androidContext().getString(R.string.default_web_client_id) // FIXME: Fake value for client id.
     }
 }
