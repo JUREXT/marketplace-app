@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk SdkVersion.compileSdk
 
     defaultConfig {
         applicationId "com.narcissus.marketplace"
-        minSdk 24
-        targetSdk 32
+        minSdk SdkVersion.minSdk
+        targetSdk SdkVersion.targetSdk
         versionCode 1
         versionName "1.0"
 
