@@ -80,6 +80,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
             )
         }
         binding.btnSignInWithGoogle.setOnClickListener {
+            Log.d("WHAT", "btnSignInWithGoogle Click")
             signInWithGoogleAccountByOneTapUI()
         }
     }
@@ -146,7 +147,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
 
     private val googleAuthLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.d("WHAT", "googleAuthLauncher Result: ${result.data?.dataString}")
             if (result.resultCode == Activity.RESULT_OK) {
+                Log.d("WHAT", "Activity.RESULT_OK")
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 try {
                     val account = task.getResult(ApiException::class.java)
@@ -155,6 +158,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
                     showSignInWithGoogleAccountErrorDialog()
                 }
             } else if (!areGooglePlayServicesAvailable()) {
+                Log.d("WHAT", "GS are NOT GooglePlayServicesAvailable")
                 showPlayServicesUnavailableErrorDialog()
             }
         }
@@ -166,6 +170,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
 
     private val googleOneTapUIAuthLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            Log.d("WHAT", "ActivityResultContracts: ${result.data}")
             if (result.resultCode == Activity.RESULT_OK) {
                 try {
                     val credential = oneTapClient.getSignInCredentialFromIntent(result.data)
@@ -177,6 +182,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
         }
 
     private fun processGoogleIdTokenResult(idToken: String?) {
+        Log.d("WHAT", "processGoogleIdTokenResult signInWithGoogle: Token: $idToken")
         if (idToken != null) {
             viewModel.signInWithGoogleAccount(idToken)
         } else {
@@ -207,8 +213,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
     }
 
     private fun signInWithGoogleAccountByOneTapUI() {
+        Log.d("WHAT", "signInWithGoogleAccountByOneTapUI")
         oneTapClient.beginSignIn(oneTapSignInRequest)
             .addOnSuccessListener { beginResult ->
+                Log.d("WHAT", "beginResult")
                 try {
                     val intentSenderRequest =
                         IntentSenderRequest.Builder(beginResult.pendingIntent.intentSender).build()
@@ -223,6 +231,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), KoinComponent {
     }
 
     private fun signInWithGoogleAccount() {
+        Log.d("WHAT", "signInWithGoogleAccount")
         googleAuthLauncher.launch(signInClient.signInIntent)
     }
 }

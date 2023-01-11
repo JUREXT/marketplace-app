@@ -1,5 +1,6 @@
 package com.narcissus.marketplace.data
 
+import android.util.Log
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
@@ -140,6 +141,7 @@ internal class UserRepositoryImpl(
     }
 
     override suspend fun signInWithGoogle(idToken: String): SignInResult {
+        Log.d("WHAT", "signInWithGoogle: Token: $idToken")
         val user = firebaseAuth.currentUser
         return if (user != null) {
             SignInResult.Success(user.toUserProfile())

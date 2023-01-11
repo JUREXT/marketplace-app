@@ -1,5 +1,6 @@
 package com.narcissus.marketplace.ui.sign_in
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.narcissus.marketplace.domain.auth.SignInResult
@@ -32,6 +33,7 @@ class SignInViewModel(
     }
 
     fun signInWithGoogleAccount(idToken: String) {
+        Log.d("WHAT", "VM signInWithGoogle: Token: $idToken")
         viewModelScope.launch {
             val signInResult = signInWithGoogle(idToken)
             _signInResultFlow.emit(signInResult)

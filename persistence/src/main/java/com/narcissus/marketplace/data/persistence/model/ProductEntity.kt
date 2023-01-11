@@ -17,5 +17,5 @@ data class ProductEntity(
     val material: String = "",
     val rating: Int = 0,
     val sales: Int = 0,
-    val created: Long = System.currentTimeMillis(),
+    val created: Long = System.currentTimeMillis()
 )
